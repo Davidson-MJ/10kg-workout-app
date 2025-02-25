@@ -264,6 +264,95 @@
   margin-top: 0.5rem;
 }
 
+/* Animation styles */
+.animation-container {
+  margin: 1rem 0;
+  position: relative;
+  height: 200px;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.exercise-animation {
+  width: 100%;
+  height: 100%;
+  stroke: #4b5563;
+  fill: none;
+}
+
+.figure-head {
+  fill: #93c5fd;
+}
+
+.figure-body, .figure-arm, .figure-leg {
+  stroke: #1e40af;
+  stroke-linecap: round;
+}
+
+.weight {
+  fill: #f97316;
+}
+
+.animation-keyframe {
+  opacity: 0;
+  animation: fadeInOut 3s infinite;
+  animation-play-state: paused;
+}
+
+.animation-container:hover .animation-keyframe,
+.animation-container.playing .animation-keyframe {
+  animation-play-state: running;
+}
+
+.animation-keyframe:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.animation-keyframe:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.animation-keyframe:nth-child(3) {
+  animation-delay: 2s;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  33.3% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.animation-toggle {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #4b5563;
+  transition: background-color 0.2s;
+}
+
+.animation-toggle:hover {
+  background-color: white;
+  color: #3b82f6;
+}
+
+.feature-highlight {
+  background-color: #ecfdf5;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  border-left: 4px solid #10b981;
+}
+
 @media (max-width: 640px) {
   .card {
     padding: 1rem;
@@ -276,5 +365,9 @@
   .button-group {
     flex-direction: column;
     gap: 0.5rem;
+  }
+  
+  .animation-container {
+    height: 180px;
   }
 }

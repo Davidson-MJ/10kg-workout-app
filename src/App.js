@@ -1,18 +1,321 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, RotateCcw, Clock, Activity, Dumbbell } from 'lucide-react';
+import { Play, Pause, RotateCcw, Clock, Activity, Dumbbell, Info } from 'lucide-react';
 import './App.css';
 
 function App() {
-  // Workout data
+  // Workout data with animations
   const circuits = [
-    { name: "Goblet Squats", description: "Hold weight at chest height, squat down, keeping chest up" },
-    { name: "Weighted Russian Twists", description: "Seated, feet elevated, rotate weight from side to side" },
-    { name: "Kettlebell Swings", description: "Using the handle, swing weight from between legs to chest height" },
-    { name: "Weighted Lunges", description: "Hold weight at chest, alternate lunges" },
-    { name: "Renegade Rows", description: "In plank position with hands on weight handles, row one arm at a time" },
-    { name: "Weighted Push-Ups", description: "Place weight on your back or do push-ups with hands on the weight" },
-    { name: "Weighted Mountain Climbers", description: "Hands on weight, alternate bringing knees to chest" },
-    { name: "Deadlifts", description: "Using weight plate grips, perform deadlifts" }
+    { 
+      name: "Goblet Squats", 
+      description: "Hold weight at chest height, squat down, keeping chest up",
+      animation: (
+        <svg viewBox="0 0 200 200" className="exercise-animation">
+          {/* Figure - standing */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="50" r="20" className="figure-head" />
+            <line x1="100" y1="70" x2="100" y2="120" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="120" x2="80" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="120" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="80" x2="70" y2="100" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="80" x2="130" y2="100" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="95" r="12" className="weight" />
+          </g>
+          
+          {/* Figure - mid squat */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="70" r="20" className="figure-head" />
+            <line x1="100" y1="90" x2="100" y2="120" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="120" x2="70" y2="150" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="130" y2="150" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="100" x2="70" y2="110" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="100" x2="130" y2="110" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="105" r="12" className="weight" />
+          </g>
+          
+          {/* Figure - full squat */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="90" r="20" className="figure-head" />
+            <line x1="100" y1="110" x2="100" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="130" x2="60" y2="130" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="130" x2="140" y2="130" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="70" y2="120" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="120" x2="130" y2="120" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="115" r="12" className="weight" />
+          </g>
+        </svg>
+      )
+    },
+    { 
+      name: "Weighted Russian Twists", 
+      description: "Seated, feet elevated, rotate weight from side to side",
+      animation: (
+        <svg viewBox="0 0 200 200" className="exercise-animation">
+          {/* Figure - center */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="80" r="20" className="figure-head" />
+            <line x1="100" y1="100" x2="100" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="130" x2="80" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="130" x2="120" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="110" x2="100" y2="140" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="140" r="12" className="weight" />
+          </g>
+          
+          {/* Figure - twisted left */}
+          <g className="animation-keyframe">
+            <circle cx="90" cy="80" r="20" className="figure-head" />
+            <line x1="90" y1="100" x2="100" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="130" x2="80" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="130" x2="120" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="90" y1="110" x2="50" y2="140" className="figure-arm" strokeWidth="4" />
+            <circle cx="50" cy="140" r="12" className="weight" />
+          </g>
+          
+          {/* Figure - twisted right */}
+          <g className="animation-keyframe">
+            <circle cx="110" cy="80" r="20" className="figure-head" />
+            <line x1="110" y1="100" x2="100" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="130" x2="80" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="130" x2="120" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="110" y1="110" x2="150" y2="140" className="figure-arm" strokeWidth="4" />
+            <circle cx="150" cy="140" r="12" className="weight" />
+          </g>
+        </svg>
+      ) 
+    },
+    { 
+      name: "Kettlebell Swings", 
+      description: "Using the handle, swing weight from between legs to chest height",
+      animation: (
+        <svg viewBox="0 0 200 200" className="exercise-animation">
+          {/* Figure - start position */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="80" r="20" className="figure-head" />
+            <line x1="100" y1="100" x2="100" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="130" x2="80" y2="150" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="130" x2="120" y2="150" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="115" x2="90" y2="145" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="115" x2="110" y2="145" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="155" r="12" className="weight" />
+          </g>
+          
+          {/* Figure - middle swing */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="70" r="20" className="figure-head" />
+            <line x1="100" y1="90" x2="100" y2="120" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="120" x2="80" y2="160" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="120" y2="160" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="100" x2="90" y2="120" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="100" x2="110" y2="120" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="130" r="12" className="weight" />
+          </g>
+          
+          {/* Figure - full swing */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="60" r="20" className="figure-head" />
+            <line x1="100" y1="80" x2="100" y2="120" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="120" x2="80" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="120" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="90" x2="90" y2="70" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="90" x2="110" y2="70" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="60" r="12" className="weight" />
+          </g>
+        </svg>
+      )
+    },
+    { 
+      name: "Weighted Lunges", 
+      description: "Hold weight at chest, alternate lunges",
+      animation: (
+        <svg viewBox="0 0 200 200" className="exercise-animation">
+          {/* Figure - standing */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="50" r="20" className="figure-head" />
+            <line x1="100" y1="70" x2="100" y2="120" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="120" x2="90" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="110" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="85" x2="80" y2="100" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="85" x2="120" y2="100" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="100" r="12" className="weight" />
+          </g>
+          
+          {/* Figure - lunge position */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="70" r="20" className="figure-head" />
+            <line x1="100" y1="90" x2="100" y2="120" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="120" x2="70" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="130" y2="130" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="100" x2="80" y2="110" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="100" x2="120" y2="110" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="110" r="12" className="weight" />
+          </g>
+          
+          {/* Figure - alternate lunge */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="70" r="20" className="figure-head" />
+            <line x1="100" y1="90" x2="100" y2="120" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="120" x2="130" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="70" y2="130" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="100" x2="80" y2="110" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="100" x2="120" y2="110" className="figure-arm" strokeWidth="4" />
+            <circle cx="100" cy="110" r="12" className="weight" />
+          </g>
+        </svg>
+      )
+    },
+    { 
+      name: "Renegade Rows", 
+      description: "In plank position with hands on weight handles, row one arm at a time",
+      animation: (
+        <svg viewBox="0 0 200 200" className="exercise-animation">
+          {/* Figure - plank position */}
+          <g className="animation-keyframe">
+            <circle cx="50" cy="120" r="15" className="figure-head" />
+            <line x1="50" y1="135" x2="100" y2="135" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="135" x2="160" y2="135" className="figure-leg" strokeWidth="4" />
+            <line x1="50" y1="135" x2="50" y2="160" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="135" x2="100" y2="160" className="figure-arm" strokeWidth="4" />
+            <circle cx="50" cy="160" r="10" className="weight" />
+            <circle cx="100" cy="160" r="10" className="weight" />
+          </g>
+          
+          {/* Figure - left row */}
+          <g className="animation-keyframe">
+            <circle cx="50" cy="120" r="15" className="figure-head" />
+            <line x1="50" y1="135" x2="100" y2="135" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="135" x2="160" y2="135" className="figure-leg" strokeWidth="4" />
+            <line x1="50" y1="135" x2="50" y2="135" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="135" x2="100" y2="160" className="figure-arm" strokeWidth="4" />
+            <circle cx="50" cy="135" r="10" className="weight" />
+            <circle cx="100" cy="160" r="10" className="weight" />
+          </g>
+          
+          {/* Figure - right row */}
+          <g className="animation-keyframe">
+            <circle cx="50" cy="120" r="15" className="figure-head" />
+            <line x1="50" y1="135" x2="100" y2="135" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="135" x2="160" y2="135" className="figure-leg" strokeWidth="4" />
+            <line x1="50" y1="135" x2="50" y2="160" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="135" x2="100" y2="135" className="figure-arm" strokeWidth="4" />
+            <circle cx="50" cy="160" r="10" className="weight" />
+            <circle cx="100" cy="135" r="10" className="weight" />
+          </g>
+        </svg>
+      )
+    },
+    { 
+      name: "Weighted Push-Ups", 
+      description: "Place weight on your back or do push-ups with hands on the weight",
+      animation: (
+        <svg viewBox="0 0 200 200" className="exercise-animation">
+          {/* Figure - high plank */}
+          <g className="animation-keyframe">
+            <circle cx="50" cy="100" r="15" className="figure-head" />
+            <line x1="50" y1="115" x2="120" y2="115" className="figure-body" strokeWidth="4" />
+            <line x1="120" y1="115" x2="160" y2="115" className="figure-leg" strokeWidth="4" />
+            <line x1="50" y1="115" x2="50" y2="150" className="figure-arm" strokeWidth="4" />
+            <line x1="120" y1="115" x2="120" y2="150" className="figure-arm" strokeWidth="4" />
+            <circle cx="85" cy="105" r="10" className="weight" />
+          </g>
+          
+          {/* Figure - mid push-up */}
+          <g className="animation-keyframe">
+            <circle cx="55" cy="120" r="15" className="figure-head" />
+            <line x1="55" y1="135" x2="120" y2="125" className="figure-body" strokeWidth="4" />
+            <line x1="120" y1="125" x2="160" y2="125" className="figure-leg" strokeWidth="4" />
+            <line x1="55" y1="135" x2="55" y2="150" className="figure-arm" strokeWidth="4" />
+            <line x1="120" y1="125" x2="120" y2="150" className="figure-arm" strokeWidth="4" />
+            <circle cx="85" cy="115" r="10" className="weight" />
+          </g>
+          
+          {/* Figure - low push-up */}
+          <g className="animation-keyframe">
+            <circle cx="60" cy="140" r="15" className="figure-head" />
+            <line x1="60" y1="155" x2="120" y2="135" className="figure-body" strokeWidth="4" />
+            <line x1="120" y1="135" x2="160" y2="135" className="figure-leg" strokeWidth="4" />
+            <line x1="60" y1="155" x2="60" y2="150" className="figure-arm" strokeWidth="4" />
+            <line x1="120" y1="135" x2="120" y2="150" className="figure-arm" strokeWidth="4" />
+            <circle cx="85" cy="125" r="10" className="weight" />
+          </g>
+        </svg>
+      )
+    },
+    { 
+      name: "Weighted Mountain Climbers", 
+      description: "Hands on weight, alternate bringing knees to chest",
+      animation: (
+        <svg viewBox="0 0 200 200" className="exercise-animation">
+          {/* Figure - start position */}
+          <g className="animation-keyframe">
+            <circle cx="60" cy="100" r="15" className="figure-head" />
+            <line x1="60" y1="115" x2="120" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="120" y1="130" x2="160" y2="150" className="figure-leg" strokeWidth="4" />
+            <line x1="120" y1="130" x2="140" y2="100" className="figure-leg" strokeWidth="4" />
+            <line x1="60" y1="115" x2="60" y2="150" className="figure-arm" strokeWidth="4" />
+            <circle cx="60" cy="150" r="10" className="weight" />
+          </g>
+          
+          {/* Figure - left knee up */}
+          <g className="animation-keyframe">
+            <circle cx="60" cy="100" r="15" className="figure-head" />
+            <line x1="60" y1="115" x2="120" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="120" y1="130" x2="160" y2="150" className="figure-leg" strokeWidth="4" />
+            <line x1="120" y1="130" x2="90" y2="115" className="figure-leg" strokeWidth="4" />
+            <line x1="60" y1="115" x2="60" y2="150" className="figure-arm" strokeWidth="4" />
+            <circle cx="60" cy="150" r="10" className="weight" />
+          </g>
+          
+          {/* Figure - right knee up */}
+          <g className="animation-keyframe">
+            <circle cx="60" cy="100" r="15" className="figure-head" />
+            <line x1="60" y1="115" x2="120" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="120" y1="130" x2="90" y2="115" className="figure-leg" strokeWidth="4" />
+            <line x1="120" y1="130" x2="140" y2="100" className="figure-leg" strokeWidth="4" />
+            <line x1="60" y1="115" x2="60" y2="150" className="figure-arm" strokeWidth="4" />
+            <circle cx="60" cy="150" r="10" className="weight" />
+          </g>
+        </svg>
+      )
+    },
+    { 
+      name: "Deadlifts", 
+      description: "Using weight plate grips, perform deadlifts",
+      animation: (
+        <svg viewBox="0 0 200 200" className="exercise-animation">
+          {/* Figure - standing */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="50" r="20" className="figure-head" />
+            <line x1="100" y1="70" x2="100" y2="120" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="120" x2="80" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="120" x2="120" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="85" x2="80" y2="115" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="85" x2="120" y2="115" className="figure-arm" strokeWidth="4" />
+            <rect x="70" y="115" width="60" height="10" rx="5" className="weight" />
+          </g>
+          
+          {/* Figure - mid bend */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="80" r="20" className="figure-head" />
+            <line x1="100" y1="100" x2="100" y2="130" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="130" x2="80" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="130" x2="120" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="115" x2="80" y2="140" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="115" x2="120" y2="140" className="figure-arm" strokeWidth="4" />
+            <rect x="70" y="140" width="60" height="10" rx="5" className="weight" />
+          </g>
+          
+          {/* Figure - full bend */}
+          <g className="animation-keyframe">
+            <circle cx="100" cy="110" r="20" className="figure-head" />
+            <line x1="100" y1="130" x2="100" y2="140" className="figure-body" strokeWidth="4" />
+            <line x1="100" y1="140" x2="80" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="140" x2="120" y2="170" className="figure-leg" strokeWidth="4" />
+            <line x1="100" y1="135" x2="80" y2="160" className="figure-arm" strokeWidth="4" />
+            <line x1="100" y1="135" x2="120" y2="160" className="figure-arm" strokeWidth="4" />
+            <rect x="70" y="160" width="60" height="10" rx="5" className="weight" />
+          </g>
+        </svg>
+      )
+    }
   ];
 
   const warmups = [
@@ -46,6 +349,20 @@ function App() {
   const [isRest, setIsRest] = useState(false);
   const [completedWorkouts, setCompletedWorkouts] = useState(0);
   const [selectedCardio, setSelectedCardio] = useState(0);
+  const [showAnimation, setShowAnimation] = useState(false);
+
+  // Load saved workout count from localStorage
+  useEffect(() => {
+    const savedCount = localStorage.getItem('completedWorkouts');
+    if (savedCount) {
+      setCompletedWorkouts(parseInt(savedCount, 10));
+    }
+  }, []);
+
+  // Save workout count to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('completedWorkouts', completedWorkouts.toString());
+  }, [completedWorkouts]);
 
   // Timer effect
   useEffect(() => {
@@ -181,6 +498,12 @@ function App() {
     }
   };
 
+  // Toggle animation
+  const toggleAnimation = () => {
+    setShowAnimation(!showAnimation);
+  };
+
+  // Renders different content based on the workout phase
   // Renders different content based on the workout phase
   const renderContent = () => {
     switch (workoutPhase) {
@@ -222,6 +545,11 @@ function App() {
             <div className="section">
               <h3 className="subtitle"><Dumbbell className="icon" /> Workout Stats:</h3>
               <p className="stats">Completed workouts: {completedWorkouts}</p>
+            </div>
+
+            <div className="section feature-highlight">
+              <h3 className="subtitle">New! Exercise Animations</h3>
+              <p className="description">Visual guides for all exercises are now included!</p>
             </div>
             
             <button
@@ -279,7 +607,20 @@ function App() {
             </h2>
             
             {!isRest && (
-              <p className="description">{circuits[currentExercise].description}</p>
+              <>
+                <p className="description">{circuits[currentExercise].description}</p>
+                
+                <div className="animation-container">
+                  {circuits[currentExercise].animation}
+                  <button 
+                    className="animation-toggle" 
+                    onClick={toggleAnimation} 
+                    title={showAnimation ? "Pause animation" : "Play animation"}
+                  >
+                    {showAnimation ? <Pause size={16} /> : <Play size={16} />}
+                  </button>
+                </div>
+              </>
             )}
             
             <div className="progress-container">
