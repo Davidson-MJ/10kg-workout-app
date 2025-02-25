@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/10kg-workout-app/static/css/main.4f01a71d.css",
+    "main.js": "/10kg-workout-app/static/js/main.b26ce727.js",
+    "static/js/453.466465f2.chunk.js": "/10kg-workout-app/static/js/453.466465f2.chunk.js",
+    "index.html": "/10kg-workout-app/index.html",
+    "main.4f01a71d.css.map": "/10kg-workout-app/static/css/main.4f01a71d.css.map",
+    "main.b26ce727.js.map": "/10kg-workout-app/static/js/main.b26ce727.js.map",
+    "453.466465f2.chunk.js.map": "/10kg-workout-app/static/js/453.466465f2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4f01a71d.css",
+    "static/js/main.b26ce727.js"
+  ]
+}
