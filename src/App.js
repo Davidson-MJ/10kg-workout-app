@@ -352,13 +352,13 @@ function App() {
   const [showAnimation, setShowAnimation] = useState(false);
   // Sound functions
   const playCountdownSound = () => {
-    const audio = new Audio('https://assets.coderrocketfuel.com/pomodoro-times-up.mp3');
+    const audio = new Audio('https://cdn.freesound.org/previews/263/263133_2064400-lq.mp3');
     audio.volume = 0.5;
     audio.play().catch(err => console.error("Audio play failed:", err));
   };
 
   const playCompletionSound = () => {
-    const audio = new Audio('https://assets.coderrocketfuel.com/pomodoro-start.mp3');
+    const audio = new Audio('https://cdn.freesound.org/previews/320/320652_5260872-lq.mp3');
     audio.volume = 0.7;
     audio.play().catch(err => console.error("Audio play failed:", err));
   };
