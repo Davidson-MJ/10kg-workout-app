@@ -384,15 +384,21 @@ function App() {
         setSeconds(seconds => {
          
           // Play countdown sound when 10 seconds remaining
-          if (seconds === 10) {
+          if (seconds === 15) {
             playCountdownSound();
           }
-
+          // Play completion sound when exercise/rest ends
+          if (seconds ==1) {
+            playCompletionSound();
+          }
+          
           if (seconds <= 1) {
             // Time's up logic
-            // Play completion sound when exercise/rest ends
-            playCompletionSound();
+            
+            
             if (workoutPhase === "circuit") {
+              
+
               if (isRest) {
                 // End of rest period
                 setIsRest(false);
