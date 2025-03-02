@@ -350,7 +350,18 @@ function App() {
   const [completedWorkouts, setCompletedWorkouts] = useState(0);
   const [selectedCardio, setSelectedCardio] = useState(0);
   const [showAnimation, setShowAnimation] = useState(false);
+  // Sound functions
+  const playCountdownSound = () => {
+    const audio = new Audio('https://assets.coderrocketfuel.com/pomodoro-times-up.mp3');
+    audio.volume = 0.5;
+    audio.play().catch(err => console.error("Audio play failed:", err));
+  };
 
+  const playCompletionSound = () => {
+    const audio = new Audio('https://assets.coderrocketfuel.com/pomodoro-start.mp3');
+    audio.volume = 0.7;
+    audio.play().catch(err => console.error("Audio play failed:", err));
+  };
   // Load saved workout count from localStorage
   useEffect(() => {
     const savedCount = localStorage.getItem('completedWorkouts');
@@ -371,8 +382,16 @@ function App() {
     if (isActive) {
       interval = setInterval(() => {
         setSeconds(seconds => {
+         
+          // Play countdown sound when 10 seconds remaining
+          if (seconds === 10) {
+            playCountdownSound();
+          }
+
           if (seconds <= 1) {
             // Time's up logic
+            // Play completion sound when exercise/rest ends
+            playCompletionSound();
             if (workoutPhase === "circuit") {
               if (isRest) {
                 // End of rest period
