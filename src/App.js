@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, RotateCcw, Clock, Activity, Dumbbell, Info } from 'lucide-react';
+import { Play, Pause, RotateCcw, Clock, Activity, Dumbbell, Info, ArrowLeft } from 'lucide-react';
 import './App.css';
 
 function App() {
@@ -487,7 +487,62 @@ function App() {
   const toggleTimer = () => {
     setIsActive(!isActive);
   };
-
+  // enable a timer reset.
+  const resetTimer = () => {
+    if (workoutPhase === "circuit") {
+      if (isRest) {
+        setSeconds(15);
+      } else {
+        setSeconds(45);
+      }
+    } else if (workoutPhase === "warmup") {
+      setSeconds(300);
+    } else if (workoutPhase === "cardio") {
+      setSeconds(300);
+    } else if (workoutPhase === "cooldown") {
+      setSeconds(300);
+    }
+  };
+  // Add this after your resetTimer function
+  const goBack = () => {
+    if (workoutPhase === "circuit") {
+      if (isRest) {
+        // Go back to the current exercise
+        setIsRest(false);
+        setSeconds(45);
+      } else if (currentExercise > 0) {
+        // Go back to previous exercise
+        setCurrentExercise(currentExercise - 1);
+        setIsRest(false);
+        setSeconds(45);
+      } else if (currentCircuit > 1) {
+        // Go back to last exercise of previous circuit
+        setCurrentCircuit(currentCircuit - 1);
+        setCurrentExercise(circuits.length - 1);
+        setIsRest(false);
+        setSeconds(45);
+      } else {
+        // Go back to warmup
+        setWorkoutPhase("warmup");
+        setSeconds(300);
+      }
+    } else if (workoutPhase === "cardio") {
+      // Go back to circuit
+      setWorkoutPhase("circuit");
+      setCurrentCircuit(3);
+      setCurrentExercise(circuits.length - 1);
+      setIsRest(false);
+      setSeconds(45);
+    } else if (workoutPhase === "cooldown") {
+      // Go back to cardio
+      setWorkoutPhase("cardio");
+      setSeconds(300);
+    } else if (workoutPhase === "complete") {
+      // Go back to cooldown
+      setWorkoutPhase("cooldown");
+      setSeconds(300);
+    }
+  };
   // Manual next
   const nextStep = () => {
     if (workoutPhase === "warmup") {
@@ -611,6 +666,18 @@ function App() {
                 {isActive ? <><Pause className="icon" /> Pause</> : <><Play className="icon" /> Resume</>}
               </button>
               <button
+                onClick={resetTimer}
+                className="button secondary"
+              >
+                <RotateCcw className="icon" /> Reset Timer
+              </button>
+              <button
+                onClick={goBack}
+                className="button secondary"
+              >
+                <ArrowLeft className="icon" /> Back
+              </button>
+              <button
                 onClick={nextStep}
                 className="button primary"
               >
@@ -628,7 +695,17 @@ function App() {
             </div>
             
             <h2 className="title">
-              {isRest ? "Rest" : circuits[currentExercise].name}
+              {isRest && currentExercise < circuits.length - 1 && (
+                <p className="next-exercise">Up next: {circuits[currentExercise + 1].name}</p>
+              )}
+
+              {isRest && currentExercise === circuits.length - 1 && currentCircuit < 3 && (
+                <p className="next-exercise">Up next: Circuit {currentCircuit + 1}, {circuits[0].name}</p>
+              )}
+
+              {isRest && currentExercise === circuits.length - 1 && currentCircuit === 3 && (
+                <p className="next-exercise">Up next: Cardio Burst</p>
+              )}
             </h2>
             
             {!isRest && (
@@ -693,6 +770,18 @@ function App() {
                 {isActive ? <><Pause className="icon" /> Pause</> : <><Play className="icon" /> Resume</>}
               </button>
               <button
+                onClick={resetTimer}
+                className="button secondary"
+              >
+                <RotateCcw className="icon" /> Reset Timer
+              </button>
+              <button
+                onClick={goBack}
+                className="button secondary"
+              >
+                <ArrowLeft className="icon" /> Back
+              </button>
+              <button
                 onClick={nextStep}
                 className="button primary"
               >
@@ -709,7 +798,7 @@ function App() {
             <p className="description">{cardioOptions[selectedCardio]}</p>
             
             <div className="timer">
-              <div className="timer-display cardio">5:00</div>
+              <div className="timer-display cardio">{formatTime(seconds)}</div>
               <p className="timer-label">Complete 10 rounds of 20s work / 10s rest</p>
             </div>
             
@@ -719,6 +808,18 @@ function App() {
                 className="button success"
               >
                 <Play className="icon" /> Start
+              </button>
+              <button
+                onClick={resetTimer}
+                className="button secondary"
+              >
+                <RotateCcw className="icon" /> Reset Timer
+              </button>
+              <button
+                onClick={goBack}
+                className="button secondary"
+              >
+                <ArrowLeft className="icon" /> Back
               </button>
               <button
                 onClick={nextStep}
@@ -753,6 +854,18 @@ function App() {
                 className={`button ${isActive ? "warning" : "success"}`}
               >
                 {isActive ? <><Pause className="icon" /> Pause</> : <><Play className="icon" /> Resume</>}
+              </button>
+              <button
+                onClick={resetTimer}
+                className="button secondary"
+              >
+                <RotateCcw className="icon" /> Reset Timer
+              </button>
+              <button
+                onClick={goBack}
+                className="button secondary"
+              >
+                <ArrowLeft className="icon" /> Back
               </button>
               <button
                 onClick={nextStep}

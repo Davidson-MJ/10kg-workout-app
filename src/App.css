@@ -8,6 +8,12 @@
   align-items: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+.next-exercise {
+  margin-top: 0;
+  font-style: italic;
+  color: #666;
+  font-size: 0.9rem;
+}
 
 .card {
   background-color: white;
